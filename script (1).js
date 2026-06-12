@@ -4,7 +4,7 @@
    ============================================================ */
 
 // TROQUE pela data real do relacionamento (formato "YYYY-MM-DD")
-const START_DATE = "2024-01-01";
+const START_DATE = "2024-06-12";
 
 /* ============================================================
    CORAÇÕES DE FUNDO
