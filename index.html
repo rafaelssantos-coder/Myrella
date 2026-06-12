@@ -1,329 +1,793 @@
-
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Para o Amor da Minha Vida</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>Para o amor da minha vida | Nosso Álbum de Memórias</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #fff;
+            font-family: 'Segoe UI', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            line-height: 1.5;
+        }
+
+        /* CORAÇÕES FLUTUANTES CSS (background) */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            background-color: #ff758f;
+            width: 20px;
+            height: 20px;
+            transform: rotate(45deg);
+            opacity: 0.25;
+            animation: floatHeart 12s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff758f;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: -10px;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                transform: translateY(0) rotate(45deg) scale(0.6);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translateY(-40px) rotate(45deg) scale(1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-80px) rotate(45deg) scale(0.7);
+                opacity: 0;
+            }
+        }
+
+        /* efeito de dispersão/click */
+        .heart-burst {
+            animation: burstHeart 0.5s ease-out forwards !important;
+        }
+
+        @keyframes burstHeart {
+            0% {
+                transform: rotate(45deg) scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: rotate(45deg) scale(2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: rotate(45deg) scale(0.8) translate(20px, -30px);
+                opacity: 0;
+            }
+        }
+
+        /* conteúdo principal fica sobre os corações */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 1.25rem 3rem 1.25rem;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            backdrop-filter: blur(2px);
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, #ff758f);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: #ddd;
+            margin-bottom: 2rem;
+            max-width: 280px;
+        }
+
+        .btn-start {
+            background: #c1121f;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 20px rgba(193, 18, 31, 0.4);
+        }
+
+        .btn-start:active {
+            transform: scale(0.96);
+        }
+
+        /* card player */
+        .player-card {
+            background: rgba(20, 20, 20, 0.9);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.6);
+            transition: box-shadow 0.3s;
+            border: 1px solid rgba(255, 117, 143, 0.3);
+        }
+
+        .cover-area {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .cover-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 12px 28px black;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        .rotate-cover {
+            animation: rotateSoft 8s linear infinite;
+        }
+
+        @keyframes rotateSoft {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .music-info {
+            text-align: center;
+            margin: 0.75rem 0;
+        }
+
+        .music-info h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ff758f;
+        }
+        .music-info p {
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+        .progress-bar {
+            background-color: #2c2c2c;
+            height: 5px;
+            border-radius: 10px;
+            margin: 15px 0;
+            cursor: pointer;
+        }
+        .progress {
+            background: #c1121f;
+            width: 0%;
+            height: 5px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+        .play-btn {
+            background: #c1121f;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px auto 0;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 0 15px rgba(193, 18, 31, 0.6);
+        }
+        .play-btn:active {
+            transform: scale(0.92);
+        }
+        .glow-bg {
+            animation: pulseGlow 1.6s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px #ff758f; background: #c1121f; }
+            100% { box-shadow: 0 0 25px #ff758f; background: #e01e2e; }
+        }
+
+        /* mensagem com efeito datilografia */
+        .love-message, .timeline-section, .gallery-section, .counter-section, .letter-section {
+            margin: 3rem 0;
+        }
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 500;
+            border-left: 4px solid #ff758f;
+            padding-left: 1rem;
+            margin-bottom: 1.8rem;
+        }
+        .typewriter p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #e0e0e0;
+            background: rgba(0,0,0,0.5);
+            padding: 1rem;
+            border-radius: 24px;
+        }
+        /* fotos galeria vertical */
+        .gallery-card {
+            background: #111;
+            border-radius: 28px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.2s, opacity 0.6s;
+            opacity: 0;
+            transform: translateY(30px);
+            box-shadow: 0 12px 18px -8px black;
+        }
+        .gallery-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gallery-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .gallery-card:active img {
+            transform: scale(1.02);
+        }
+        .gallery-card p {
+            padding: 1rem;
+            text-align: center;
+            font-style: italic;
+            color: #ffb3c6;
+        }
+
+        /* timeline vertical */
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: rgba(30,30,30,0.6);
+            border-radius: 28px;
+            padding: 1rem;
+            backdrop-filter: blur(4px);
+        }
+        .timeline-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            object-fit: cover;
+        }
+        .timeline-content h4 {
+            color: #ff758f;
+        }
+        /* contador */
+        .counter-box {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            background: #1a1a1a;
+            border-radius: 48px;
+            padding: 1.5rem;
+        }
+        .counter-item span:first-child {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff758f;
+        }
+        /* carta */
+        .letter-card {
+            background: #1e1e1e;
+            padding: 2rem;
+            border-radius: 32px;
+            box-shadow: 0 12px 28px black;
+            transform: translateY(40px);
+            opacity: 0;
+            transition: 0.7s;
+            border: 1px solid #c1121f;
+        }
+        .letter-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .final-effect {
+            text-align: center;
+            padding: 3rem 0;
+            background: rgba(0,0,0,0.7);
+            border-radius: 40px;
+            margin-top: 2rem;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 0 0.5rem;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        .css-heart-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-color: #ff758f;
+            transform: rotate(45deg);
+            position: relative;
+            margin: 0 4px;
+            top: 3px;
+        }
+        .css-heart-icon::before, .css-heart-icon::after {
+            content: "";
+            width: 18px;
+            height: 18px;
+            background-color: #ff758f;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .css-heart-icon::before { top: -9px; left: 0; }
+        .css-heart-icon::after { top: 0; left: -9px; }
+    </style>
 </head>
 <body>
+<div class="heart-bg" id="heartBg"></div>
+<div class="container">
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <h1>Para o amor da minha vida</h1>
+        <p>Uma pequena lembrança de tudo o que sinto por você.</p>
+        <button class="btn-start" id="startBtn">Começar</button>
+    </section>
 
-  <!-- ===== CORAÇÕES DE FUNDO ===== -->
-  <div class="hearts-bg" id="heartsBg"></div>
-
-  <!-- ===== HERO ===== -->
-  <section class="hero" id="hero">
-    <div class="hero-content">
-      <p class="hero-sub">— uma surpresa especial —</p>
-      <h1 class="hero-title">Para o amor<br/>da minha vida</h1>
-      <p class="hero-desc">Uma pequena lembrança de tudo o que sinto por você.</p>
-      <button class="btn-start" id="btnStart">Começar</button>
-    </div>
-    <div class="hero-scroll-indicator">
-      <span></span>
-    </div>
-  </section>
-
-  <!-- ===== PLAYER DE MÚSICA ===== -->
-  <section class="player-section" id="playerSection">
-    <div class="player-card" id="playerCard">
-      <div class="player-album-wrap" id="albumWrap">
-        <!-- TROQUE pelo link direto da capa -->
-        <img
-          class="player-album"
-          id="albumImg"
-          src="https://drive.google.com/uc?export=view&id=1PIDCLtGDGtDOKQHbX3vls7l3CavBkE5s"
-          alt="Capa do álbum"
-        />
-        <div class="player-album-glow"></div>
-      </div>
-
-      <div class="player-info">
-        <p class="player-badge">tocando agora</p>
-        <h2 class="player-title">And If You Go I Wanna Go With You,<br/>And If You Die I Wanna Die With You</h2>
-        <p class="player-artist">System of a Down</p>
-      </div>
-
-      <div class="player-progress-wrap">
-        <div class="player-progress-bar" id="progressBar">
-          <div class="player-progress-fill" id="progressFill"></div>
-          <div class="player-progress-thumb" id="progressThumb"></div>
+    <!-- Player section -->
+    <section id="playerSection" style="scroll-margin-top: 20px;">
+        <div class="player-card" id="playerCard">
+            <div class="cover-area">
+                <img id="coverImg" class="cover-img" src="https://drive.google.com/uc?export=view&id=1PIDCLtGDGtDOKQHbX3vls7l3CavBkE5s" alt="capa do álbum">
+            </div>
+            <div class="music-info">
+                <h3 id="songTitle">LONELY DAY</h3>
+                <p>SYSTEM OF A DOWN</p>
+            </div>
+            <div class="progress-bar" id="progressBar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <div class="time-info">
+                <span id="currentTime">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+            <div class="play-btn" id="playPauseBtn">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                    <polygon points="5 3 19 12 5 21 5 3" id="playIcon"/>
+                </svg>
+            </div>
         </div>
-        <div class="player-times">
-          <span id="currentTime">0:00</span>
-          <span id="totalTime">0:00</span>
+    </section>
+
+    <!-- Mensagem de amor com efeito digitação -->
+    <section class="love-message">
+        <h2 class="section-title">Você é meu lugar favorito</h2>
+        <div class="typewriter">
+            <p id="typingMessage"></p>
         </div>
-      </div>
+    </section>
 
-      <div class="player-controls">
-        <button class="ctrl-btn" id="btnPlay" aria-label="Play/Pause">
-          <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-          <svg id="iconPause" viewBox="0 0 24 24" fill="currentColor" style="display:none">
-            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-          </svg>
-        </button>
-      </div>
+    <!-- Galeria de fotos -->
+    <section class="gallery-section">
+        <h2 class="section-title">Nossas memórias</h2>
+        <div id="galleryContainer"></div>
+    </section>
 
-      <!-- TROQUE pela URL direta do arquivo de áudio -->
-      <audio id="audioPlayer" preload="none">
-        <source src="https://drive.google.com/uc?export=download&id=1plarfxv0fLn3aMIDAsDEXGmS6kC38kZY" type="audio/mpeg" />
-      </audio>
-    </div>
-  </section>
+    <!-- Timeline -->
+    <section class="timeline-section">
+        <h2 class="section-title">Linha do tempo</h2>
+        <div id="timelineContainer"></div>
+    </section>
 
-  <!-- ===== MENSAGEM DE AMOR ===== -->
-  <section class="love-message-section" id="loveSection">
-    <div class="love-message-inner">
-      <div class="section-label">mensagem</div>
-      <h2 class="section-title">Você é meu lugar favorito</h2>
-      <div class="love-text-wrap">
-        <p class="love-text" id="loveText"></p>
-        <span class="cursor-blink" id="loveCursor">|</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== GALERIA DE FOTOS ===== -->
-  <section class="gallery-section" id="gallerySection">
-    <div class="section-label">memórias</div>
-    <h2 class="section-title">Nossos momentos</h2>
-
-    <div class="gallery-grid">
-
-      <!-- Foto 1 — TROQUE o id do link -->
-      <div class="gallery-card fade-in-up">
-        <div class="gallery-img-wrap">
-          <img
-            class="gallery-img"
-            data-src="https://drive.google.com/uc?export=view&id=1K8qRPOy8kd_su2g-x36fmzZ-TzSpFLnu"
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-            alt="Memória 1"
-          />
-        </div>
-        <div class="gallery-caption">
-          <div class="gallery-heart-icon"></div>
-          <p>Um dos momentos que guardo no coração.</p>
-        </div>
-      </div>
-
-      <!-- Foto 2 -->
-      <div class="gallery-card fade-in-up">
-        <div class="gallery-img-wrap">
-          <img
-            class="gallery-img"
-            data-src="https://drive.google.com/uc?export=view&id=1RQYcUG963cdO5XgSbVm9Tfqv94EM5hre"
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-            alt="Memória 2"
-          />
-        </div>
-        <div class="gallery-caption">
-          <div class="gallery-heart-icon"></div>
-          <p>Seu sorriso sempre ilumina meu dia.</p>
-        </div>
-      </div>
-
-      <!-- Foto 3 -->
-      <div class="gallery-card fade-in-up">
-        <div class="gallery-img-wrap">
-          <img
-            class="gallery-img"
-            data-src="https://drive.google.com/uc?export=view&id=1ID1yITtwTzhbEXI5evrby7uCmfsipKlW"
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-            alt="Memória 3"
-          />
-        </div>
-        <div class="gallery-caption">
-          <div class="gallery-heart-icon"></div>
-          <p>Aqui já existia tudo aquilo que eu queria para minha vida.</p>
-        </div>
-      </div>
-
-      <!-- Foto 4 -->
-      <div class="gallery-card fade-in-up">
-        <div class="gallery-img-wrap">
-          <img
-            class="gallery-img"
-            data-src="https://drive.google.com/uc?export=view&id=13RYGpPn38AlY5sh58Uzb1ekYAbq9b5fc"
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-            alt="Memória 4"
-          />
-        </div>
-        <div class="gallery-caption">
-          <div class="gallery-heart-icon"></div>
-          <p>Entre todas as escolhas que fiz, você continua sendo a minha favorita.</p>
-        </div>
-      </div>
-
-      <!-- Foto 5 -->
-      <div class="gallery-card fade-in-up">
-        <div class="gallery-img-wrap">
-          <img
-            class="gallery-img"
-            data-src="https://drive.google.com/uc?export=view&id=1RN9m39AuqNSRbB7ZoyctWgvre_8KGtXU"
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-            alt="Memória 5"
-          />
-        </div>
-        <div class="gallery-caption">
-          <div class="gallery-heart-icon"></div>
-          <p>Quero construir milhares de lembranças ao seu lado.</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===== LINHA DO TEMPO ===== -->
-  <section class="timeline-section" id="timelineSection">
-    <div class="section-label">história</div>
-    <h2 class="section-title">Nossa história</h2>
-
-    <div class="timeline">
-
-      <div class="timeline-item fade-in-up">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-img-wrap">
-            <img
-              class="timeline-img gallery-img"
-              data-src="https://drive.google.com/uc?export=view&id=1GSciAwu_Q5WfeuUahCIV0eOrSF8-d3-V"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              alt="Primeira conversa"
-            />
-          </div>
-          <div class="timeline-text">
-            <span class="timeline-date">Primeira conversa</span>
-            <p>Sem saber, aquele momento mudaria tudo.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-item fade-in-up">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-img-wrap">
-            <img
-              class="timeline-img gallery-img"
-              data-src="https://drive.google.com/uc?export=view&id=1K8qRPOy8kd_su2g-x36fmzZ-TzSpFLnu"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              alt="Primeiro encontro"
-            />
-          </div>
-          <div class="timeline-text">
-            <span class="timeline-date">Primeiro encontro</span>
-            <p>Foi quando percebi que você era especial.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-item fade-in-up">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-img-wrap">
-            <img
-              class="timeline-img gallery-img"
-              data-src="https://drive.google.com/uc?export=view&id=1RQYcUG963cdO5XgSbVm9Tfqv94EM5hre"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              alt="Primeira foto juntos"
-            />
-          </div>
-          <div class="timeline-text">
-            <span class="timeline-date">Primeira foto juntos</span>
-            <p>Uma lembrança que quero guardar para sempre.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-item fade-in-up">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <div class="timeline-img-wrap">
-            <img
-              class="timeline-img gallery-img"
-              data-src="https://drive.google.com/uc?export=view&id=1RN9m39AuqNSRbB7ZoyctWgvre_8KGtXU"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              alt="Momento favorito"
-            />
-          </div>
-          <div class="timeline-text">
-            <span class="timeline-date">Momento favorito</span>
-            <p>Um dos muitos instantes que eu reviveria infinitas vezes.</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===== CONTADOR ===== -->
-  <section class="counter-section" id="counterSection">
-    <div class="counter-inner fade-in-up">
-      <div class="section-label">tempo juntos</div>
-      <h2 class="section-title">Nosso tempo juntos</h2>
-      <div class="counter-grid">
+    <!-- Contador de tempo -->
+    <section class="counter-section">
+        <h2 class="section-title">Nosso tempo juntos</h2>
         <div class="counter-box">
-          <span class="counter-number" id="cDays">0</span>
-          <span class="counter-label">dias</span>
+            <div class="counter-item"><span id="days">0</span><br>Dias</div>
+            <div class="counter-item"><span id="hours">0</span><br>Horas</div>
+            <div class="counter-item"><span id="minutes">0</span><br>Minutos</div>
+            <div class="counter-item"><span id="seconds">0</span><br>Segundos</div>
         </div>
-        <div class="counter-box">
-          <span class="counter-number" id="cHours">0</span>
-          <span class="counter-label">horas</span>
+    </section>
+
+    <!-- Carta final -->
+    <section class="letter-section">
+        <div class="letter-card" id="letterCard">
+            <h3 style="color:#ff758f;">Uma última mensagem</h3>
+            <p style="margin-top:1rem;">
+                Se eu pudesse escolher novamente, escolheria você.<br><br>
+                Escolheria todas as nossas conversas.<br>
+                Escolheria todos os nossos momentos.<br>
+                Escolheria cada abraço.<br>
+                Escolheria cada sorriso.<br>
+                E escolheria você, infinitas vezes.<br><br>
+                Obrigado por fazer parte da minha vida.<br>
+                Eu te amo.
+            </p>
         </div>
-        <div class="counter-box">
-          <span class="counter-number" id="cMinutes">0</span>
-          <span class="counter-label">minutos</span>
-        </div>
-        <div class="counter-box">
-          <span class="counter-number" id="cSeconds">0</span>
-          <span class="counter-label">segundos</span>
-        </div>
-      </div>
-      <!-- TROQUE pela data real do relacionamento (formato YYYY-MM-DD) -->
-      <!-- const startDate é definido no script.js -->
-    </div>
-  </section>
+    </section>
 
-  <!-- ===== CARTA FINAL ===== -->
-  <section class="letter-section" id="letterSection">
-    <div class="letter-card fade-in-up">
-      <div class="letter-header">
-        <div class="letter-heart"></div>
-        <h2>Uma última mensagem</h2>
-        <div class="letter-heart"></div>
-      </div>
-      <div class="letter-body">
-        <p>Se eu pudesse escolher novamente, escolheria você.</p>
-        <p>Escolheria todas as nossas conversas.</p>
-        <p>Escolheria todos os nossos momentos.</p>
-        <p>Escolheria cada abraço.</p>
-        <p>Escolheria cada sorriso.</p>
-        <p>E escolheria você, infinitas vezes.</p>
-        <br/>
-        <p>Obrigado por fazer parte da minha vida.</p>
-        <p class="letter-love">Eu te amo.</p>
-      </div>
-      <div class="letter-signature">— com todo o meu amor —</div>
-    </div>
-  </section>
+    <!-- Efeito especial final (surge ao fim da página) -->
+    <div id="finalEffectContainer" style="min-height: 1px;"></div>
 
-  <!-- ===== EFEITO FINAL ===== -->
-  <section class="final-section" id="finalSection">
-    <div class="final-hearts-rain" id="finalHeartsRain"></div>
-    <div class="final-message fade-in-up" id="finalMessage">
-      <p>Meu lugar favorito sempre será ao seu lado.</p>
-    </div>
-  </section>
+    <footer>
+        Feito com amor especialmente para você. 
+        <i class="css-heart-icon"></i>
+    </footer>
+</div>
 
-  <!-- ===== RODAPÉ ===== -->
-  <footer class="footer">
-    <div class="footer-heart"></div>
-    <p>Feito com amor especialmente para você.</p>
-    <div class="footer-heart"></div>
-  </footer>
+<script>
+    // --- CONFIGURAÇÕES PARA PERSONALIZAÇÃO (URLs e data) ---
+    // URL da música CORRETA: Lonely Day - System Of A Down
+    const MUSIC_URL = "https://drive.google.com/uc?export=download&id=1plarfxv0fLn3aMIDAsDEXGmS6kC38kZY";
+    // Foto capa já está no src
+    // Galeria de fotos (6 fotos espalhadas)
+    const GALLERY_IMAGES = [
+        { url: "https://drive.google.com/uc?export=view&id=1K8qRPOy8kd_su2g-x36fmzZ-TzSpFLnu", legenda: "Um dos momentos que guardo no coração." },
+        { url: "https://drive.google.com/uc?export=view&id=1RQYcUG963cdO5XgSbVm9Tfqv94EM5hre", legenda: "Seu sorriso sempre ilumina meu dia." },
+        { url: "https://drive.google.com/uc?export=view&id=1ID1yITtwTzhbEXI5evrby7uCmfsipKlW", legenda: "Aqui já existia tudo aquilo que eu queria para minha vida." },
+        { url: "https://drive.google.com/uc?export=view&id=13RYGpPn38AlY5sh58Uzb1ekYAbq9b5fc", legenda: "Entre todas as escolhas que fiz, você continua sendo a minha favorita." },
+        { url: "https://drive.google.com/uc?export=view&id=1RN9m39AuqNSRbB7ZoyctWgvre_8KGtXU", legenda: "Quero construir milhares de lembranças ao seu lado." },
+        { url: "https://drive.google.com/uc?export=view&id=1GSciAwu_Q5WfeuUahCIV0eOrSF8-d3-V", legenda: "Cada capítulo da nossa história é especial." }
+    ];
+    // Timeline
+    const TIMELINE_DATA = [
+        { data: "Primeira conversa", desc: "Sem saber, aquele momento mudaria tudo.", img: "https://drive.google.com/uc?export=view&id=1K8qRPOy8kd_su2g-x36fmzZ-TzSpFLnu" },
+        { data: "Primeiro encontro", desc: "Foi quando percebi que você era especial.", img: "https://drive.google.com/uc?export=view&id=1RQYcUG963cdO5XgSbVm9Tfqv94EM5hre" },
+        { data: "Primeira foto juntos", desc: "Uma lembrança que quero guardar para sempre.", img: "https://drive.google.com/uc?export=view&id=1ID1yITtwTzhbEXI5evrby7uCmfsipKlW" },
+        { data: "Momento favorito", desc: "Um dos muitos instantes que eu reviveria infinitas vezes.", img: "https://drive.google.com/uc?export=view&id=13RYGpPn38AlY5sh58Uzb1ekYAbq9b5fc" }
+    ];
+    // Data do relacionamento (configurável)
+    const START_DATE = "2024-01-01";   // <-- ALTERE AQUI A DATA DE INÍCIO (AAAA-MM-DD)
 
-  <script src="script.js"></script>
+    // ------------------------------------------------------------
+    // 1. corações flutuantes com CSS
+    function createFloatingHearts() {
+        const container = document.getElementById('heartBg');
+        for(let i = 0; i < 35; i++) {
+            let heart = document.createElement('div');
+            heart.classList.add('heart');
+            let size = Math.random() * 18 + 12;
+            heart.style.width = size + 'px';
+            heart.style.height = size + 'px';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = Math.random() * 8 + 6 + 's';
+            heart.style.animationDelay = Math.random() * 8 + 's';
+            heart.style.opacity = Math.random() * 0.4 + 0.1;
+            heart.querySelectorAll('::before, ::after').forEach(()=>{});
+            container.appendChild(heart);
+            // ajustar pseudo elementos dinamicamente
+            let style = document.createElement('style');
+            style.textContent = `
+                .heart:nth-child(${i+1})::before, .heart:nth-child(${i+1})::after {
+                    width: ${size}px;
+                    height: ${size}px;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+
+    // toque/clique nos corações próximos
+    document.addEventListener('click', (e) => {
+        let hearts = document.querySelectorAll('.heart');
+        let mouseX = e.clientX, mouseY = e.clientY;
+        hearts.forEach(heart => {
+            let rect = heart.getBoundingClientRect();
+            let dx = rect.left + rect.width/2 - mouseX;
+            let dy = rect.top + rect.height/2 - mouseY;
+            let distance = Math.hypot(dx, dy);
+            if(distance < 120) {
+                heart.classList.add('heart-burst');
+                setTimeout(() => heart.classList.remove('heart-burst'), 500);
+                // aumentar e girar
+                heart.style.transform = `rotate(45deg) scale(1.4)`;
+                setTimeout(() => heart.style.transform = '', 300);
+            }
+        });
+    });
+
+    // player audio
+    const audio = new Audio(MUSIC_URL);
+    const playBtn = document.getElementById('playPauseBtn');
+    const progress = document.getElementById('progress');
+    const progressBar = document.getElementById('progressBar');
+    const currentTimeSpan = document.getElementById('currentTime');
+    const durationSpan = document.getElementById('duration');
+    const coverImgDom = document.getElementById('coverImg');
+    let isPlaying = false;
+    let coverRotationInterval = null;
+
+    function formatTime(sec) {
+        if(isNaN(sec)) return "0:00";
+        let mins = Math.floor(sec / 60);
+        let seconds = Math.floor(sec % 60);
+        return `${mins}:${seconds < 10 ? '0'+seconds : seconds}`;
+    }
+
+    function updateProgress() {
+        if(audio.duration) {
+            let percent = (audio.currentTime / audio.duration) * 100;
+            progress.style.width = percent + '%';
+            currentTimeSpan.innerText = formatTime(audio.currentTime);
+        }
+    }
+
+    audio.addEventListener('loadedmetadata', () => {
+        durationSpan.innerText = formatTime(audio.duration);
+    });
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('ended', () => {
+        isPlaying = false;
+        playBtn.innerHTML = `<svg width="30" height="30" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+        coverImgDom.classList.remove('rotate-cover');
+        document.getElementById('playerCard').classList.remove('glow-bg');
+    });
+
+    function togglePlay() {
+        if(isPlaying) {
+            audio.pause();
+            playBtn.innerHTML = `<svg width="30" height="30" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+            coverImgDom.classList.remove('rotate-cover');
+            document.getElementById('playerCard').classList.remove('glow-bg');
+        } else {
+            audio.play().catch(e=>console.log);
+            playBtn.innerHTML = `<svg width="30" height="30" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg>`;
+            coverImgDom.classList.add('rotate-cover');
+            document.getElementById('playerCard').classList.add('glow-bg');
+        }
+        isPlaying = !isPlaying;
+    }
+    playBtn.addEventListener('click', togglePlay);
+    progressBar.addEventListener('click', (e) => {
+        let rect = progressBar.getBoundingClientRect();
+        let perc = (e.clientX - rect.left) / rect.width;
+        if(audio.duration) {
+            audio.currentTime = perc * audio.duration;
+        }
+    });
+
+    // Mensagem com efeito datilografia
+    const fullMessage = `Desde que você entrou na minha vida, os dias ficaram mais leves, os sorrisos mais sinceros e os sonhos mais bonitos.\n\nCada momento ao seu lado se tornou uma memória que guardo com carinho.\n\nEste site é apenas uma pequena forma de mostrar o quanto você é importante para mim e o quanto sou feliz por ter você comigo.\n\nEu te amo mais do que qualquer texto seria capaz de explicar.`;
+    let i = 0;
+    function typeWriter() {
+        let para = document.getElementById('typingMessage');
+        if(i < fullMessage.length) {
+            para.innerText += fullMessage.charAt(i);
+            i++;
+            setTimeout(typeWriter, 35);
+        }
+    }
+
+    // galeria dinâmica com lazy loading + observer
+    function buildGallery() {
+        const galleryDiv = document.getElementById('galleryContainer');
+        galleryDiv.innerHTML = '';
+        GALLERY_IMAGES.forEach((img, idx) => {
+            let card = document.createElement('div');
+            card.className = 'gallery-card';
+            card.innerHTML = `<img data-src="${img.url}" alt="foto romântica" loading="lazy"><p>${img.legenda}</p>`;
+            galleryDiv.appendChild(card);
+            let imgEl = card.querySelector('img');
+            const observerImg = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        imgEl.src = imgEl.dataset.src;
+                        observerImg.unobserve(imgEl);
+                    }
+                });
+            });
+            observerImg.observe(imgEl);
+            // animação entrada
+            const obsCard = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) card.classList.add('visible');
+                });
+            }, { threshold: 0.2 });
+            obsCard.observe(card);
+        });
+    }
+
+    function buildTimeline() {
+        const timelineDiv = document.getElementById('timelineContainer');
+        timelineDiv.innerHTML = '';
+        TIMELINE_DATA.forEach(item => {
+            let div = document.createElement('div');
+            div.className = 'timeline-item';
+            div.innerHTML = `
+                <img src="${item.img}" loading="lazy" alt="timeline">
+                <div class="timeline-content">
+                    <h4>${item.data}</h4>
+                    <p>${item.desc}</p>
+                </div>
+            `;
+            timelineDiv.appendChild(div);
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) entry.target.style.opacity = '1';
+                });
+            }, { threshold: 0.2 });
+            obs.observe(div);
+        });
+    }
+
+    // contador de tempo
+    function updateCounter() {
+        const start = new Date(START_DATE);
+        const now = new Date();
+        const diff = now - start;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (86400000)) / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+        document.getElementById('days').innerText = days;
+        document.getElementById('hours').innerText = hours;
+        document.getElementById('minutes').innerText = minutes;
+        document.getElementById('seconds').innerText = seconds;
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    // efeito final ao chegar no final do site (IntersectionObserver no rodapé e carta)
+    let finalTriggered = false;
+    function createFinalEffect() {
+        if(finalTriggered) return;
+        finalTriggered = true;
+        let overlayDiv = document.createElement('div');
+        overlayDiv.style.position = 'fixed';
+        overlayDiv.style.top = '0';
+        overlayDiv.style.left = '0';
+        overlayDiv.style.width = '100%';
+        overlayDiv.style.height = '100%';
+        overlayDiv.style.backgroundColor = 'rgba(0,0,0,0.85)';
+        overlayDiv.style.zIndex = '999';
+        overlayDiv.style.display = 'flex';
+        overlayDiv.style.alignItems = 'center';
+        overlayDiv.style.justifyContent = 'center';
+        overlayDiv.style.flexDirection = 'column';
+        overlayDiv.style.pointerEvents = 'none';
+        let phrase = document.createElement('div');
+        phrase.innerText = 'Meu lugar favorito sempre será ao seu lado.';
+        phrase.style.color = '#ff758f';
+        phrase.style.fontSize = '1.8rem';
+        phrase.style.fontWeight = 'bold';
+        phrase.style.textAlign = 'center';
+        phrase.style.padding = '2rem';
+        phrase.style.animation = 'fadeInUp 1s ease';
+        overlayDiv.appendChild(phrase);
+        // chuva de corações CSS adicionais
+        for(let i=0;i<70;i++) {
+            let heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.position = 'absolute';
+            heart.style.width = '16px';
+            heart.style.height = '16px';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = '-30px';
+            heart.style.animation = `fallingHeart ${Math.random() * 3 + 2}s linear forwards`;
+            heart.style.opacity = '0.8';
+            overlayDiv.appendChild(heart);
+        }
+        document.body.appendChild(overlayDiv);
+        // após 5 segundos sumir
+        setTimeout(() => {
+            overlayDiv.style.opacity = '0';
+            setTimeout(() => overlayDiv.remove(), 1000);
+        }, 6000);
+        let styleRain = document.createElement('style');
+        styleRain.textContent = `
+            @keyframes fallingHeart {
+                0% { transform: translateY(0) rotate(45deg); opacity: 0.9; }
+                100% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+            }
+            @keyframes fadeInUp {
+                from { opacity:0; transform: translateY(40px); }
+                to { opacity:1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(styleRain);
+    }
+
+    // observer para final
+    const observerFinal = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting && !finalTriggered) {
+                createFinalEffect();
+            }
+        });
+    }, { threshold: 0.1 });
+    const footer = document.querySelector('footer');
+    if(footer) observerFinal.observe(footer);
+
+    // animação carta
+    const letterObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.3 });
+    letterObs.observe(document.getElementById('letterCard'));
+
+    // gerar corações flutuantes
+    createFloatingHearts();
+    buildGallery();
+    buildTimeline();
+    typeWriter();
+
+    // scroll suave hero
+    document.getElementById('startBtn').addEventListener('click', () => {
+        document.getElementById('playerSection').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // observador para todas as gallery-card animar entrada
+    const allCards = document.querySelectorAll('.gallery-card');
+    const galleryObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.gallery-card').forEach(c => galleryObserver.observe(c));
+
+    // garantir atualização do nome da música:
+    document.getElementById('songTitle').innerText = "LONELY DAY";
+    // pequeno ajuste no título da página
+    document.title = "LONELY DAY - Para o amor da minha vida";
+</script>
 </body>
 </html>
