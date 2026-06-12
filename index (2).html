@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para o Amor da Minha Vida</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== CORAÇÕES DE FUNDO ===== -->
+  <div class="hearts-bg" id="heartsBg"></div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <p class="hero-sub">— uma surpresa especial —</p>
+      <h1 class="hero-title">Para o amor<br/>da minha vida</h1>
+      <p class="hero-desc">Uma pequena lembrança de tudo o que sinto por você.</p>
+      <button class="btn-start" id="btnStart">Começar</button>
+    </div>
+    <div class="hero-scroll-indicator">
+      <span></span>
+    </div>
+  </section>
+
+  <!-- ===== PLAYER DE MÚSICA ===== -->
+  <section class="player-section" id="playerSection">
+    <div class="player-card" id="playerCard">
+      <div class="player-album-wrap" id="albumWrap">
+        <!-- TROQUE pelo link direto da capa -->
+        <img
+          class="player-album"
+          id="albumImg"
+          src="https://drive.google.com/uc?export=view&id=1PIDCLtGDGtDOKQHbX3vls7l3CavBkE5s"
+          alt="Capa do álbum"
+        />
+        <div class="player-album-glow"></div>
+      </div>
+
+      <div class="player-info">
+        <p class="player-badge">tocando agora</p>
+        <h2 class="player-title">And If You Go I Wanna Go With You,<br/>And If You Die I Wanna Die With You</h2>
+        <p class="player-artist">System of a Down</p>
+      </div>
+
+      <div class="player-progress-wrap">
+        <div class="player-progress-bar" id="progressBar">
+          <div class="player-progress-fill" id="progressFill"></div>
+          <div class="player-progress-thumb" id="progressThumb"></div>
+        </div>
+        <div class="player-times">
+          <span id="currentTime">0:00</span>
+          <span id="totalTime">0:00</span>
+        </div>
+      </div>
+
+      <div class="player-controls">
+        <button class="ctrl-btn" id="btnPlay" aria-label="Play/Pause">
+          <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <svg id="iconPause" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- TROQUE pela URL direta do arquivo de áudio -->
+      <audio id="audioPlayer" preload="none">
+        <source src="https://drive.google.com/uc?export=download&id=1plarfxv0fLn3aMIDAsDEXGmS6kC38kZY" type="audio/mpeg" />
+      </audio>
+    </div>
+  </section>
+
+  <!-- ===== MENSAGEM DE AMOR ===== -->
+  <section class="love-message-section" id="loveSection">
+    <div class="love-message-inner">
+      <div class="section-label">mensagem</div>
+      <h2 class="section-title">Você é meu lugar favorito</h2>
+      <div class="love-text-wrap">
+        <p class="love-text" id="loveText"></p>
+        <span class="cursor-blink" id="loveCursor">|</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALERIA DE FOTOS ===== -->
+  <section class="gallery-section" id="gallerySection">
+    <div class="section-label">memórias</div>
+    <h2 class="section-title">Nossos momentos</h2>
+
+    <div class="gallery-grid">
+
+      <!-- Foto 1 — TROQUE o id do link -->
+      <div class="gallery-card fade-in-up">
+        <div class="gallery-img-wrap">
+          <img
+            class="gallery-img"
+            data-src="https://drive.google.com/uc?export=view&id=1K8qRPOy8kd_su2g-x36fmzZ-TzSpFLnu"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            alt="Memória 1"
+          />
+        </div>
+        <div class="gallery-caption">
+          <div class="gallery-heart-icon"></div>
+          <p>Um dos momentos que guardo no coração.</p>
+        </div>
+      </div>
+
+      <!-- Foto 2 -->
+      <div class="gallery-card fade-in-up">
+        <div class="gallery-img-wrap">
+          <img
+            class="gallery-img"
+            data-src="https://drive.google.com/uc?export=view&id=1RQYcUG963cdO5XgSbVm9Tfqv94EM5hre"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            alt="Memória 2"
+          />
+        </div>
+        <div class="gallery-caption">
+          <div class="gallery-heart-icon"></div>
+          <p>Seu sorriso sempre ilumina meu dia.</p>
+        </div>
+      </div>
+
+      <!-- Foto 3 -->
+      <div class="gallery-card fade-in-up">
+        <div class="gallery-img-wrap">
+          <img
+            class="gallery-img"
+            data-src="https://drive.google.com/uc?export=view&id=1ID1yITtwTzhbEXI5evrby7uCmfsipKlW"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            alt="Memória 3"
+          />
+        </div>
+        <div class="gallery-caption">
+          <div class="gallery-heart-icon"></div>
+          <p>Aqui já existia tudo aquilo que eu queria para minha vida.</p>
+        </div>
+      </div>
+
+      <!-- Foto 4 -->
+      <div class="gallery-card fade-in-up">
+        <div class="gallery-img-wrap">
+          <img
+            class="gallery-img"
+            data-src="https://drive.google.com/uc?export=view&id=13RYGpPn38AlY5sh58Uzb1ekYAbq9b5fc"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            alt="Memória 4"
+          />
+        </div>
+        <div class="gallery-caption">
+          <div class="gallery-heart-icon"></div>
+          <p>Entre todas as escolhas que fiz, você continua sendo a minha favorita.</p>
+        </div>
+      </div>
+
+      <!-- Foto 5 -->
+      <div class="gallery-card fade-in-up">
+        <div class="gallery-img-wrap">
+          <img
+            class="gallery-img"
+            data-src="https://drive.google.com/uc?export=view&id=1RN9m39AuqNSRbB7ZoyctWgvre_8KGtXU"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            alt="Memória 5"
+          />
+        </div>
+        <div class="gallery-caption">
+          <div class="gallery-heart-icon"></div>
+          <p>Quero construir milhares de lembranças ao seu lado.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== LINHA DO TEMPO ===== -->
+  <section class="timeline-section" id="timelineSection">
+    <div class="section-label">história</div>
+    <h2 class="section-title">Nossa história</h2>
+
+    <div class="timeline">
+
+      <div class="timeline-item fade-in-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-img-wrap">
+            <img
+              class="timeline-img gallery-img"
+              data-src="https://drive.google.com/uc?export=view&id=1GSciAwu_Q5WfeuUahCIV0eOrSF8-d3-V"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              alt="Primeira conversa"
+            />
+          </div>
+          <div class="timeline-text">
+            <span class="timeline-date">Primeira conversa</span>
+            <p>Sem saber, aquele momento mudaria tudo.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-img-wrap">
+            <img
+              class="timeline-img gallery-img"
+              data-src="https://drive.google.com/uc?export=view&id=1K8qRPOy8kd_su2g-x36fmzZ-TzSpFLnu"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              alt="Primeiro encontro"
+            />
+          </div>
+          <div class="timeline-text">
+            <span class="timeline-date">Primeiro encontro</span>
+            <p>Foi quando percebi que você era especial.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-img-wrap">
+            <img
+              class="timeline-img gallery-img"
+              data-src="https://drive.google.com/uc?export=view&id=1RQYcUG963cdO5XgSbVm9Tfqv94EM5hre"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              alt="Primeira foto juntos"
+            />
+          </div>
+          <div class="timeline-text">
+            <span class="timeline-date">Primeira foto juntos</span>
+            <p>Uma lembrança que quero guardar para sempre.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item fade-in-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-img-wrap">
+            <img
+              class="timeline-img gallery-img"
+              data-src="https://drive.google.com/uc?export=view&id=1RN9m39AuqNSRbB7ZoyctWgvre_8KGtXU"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+              alt="Momento favorito"
+            />
+          </div>
+          <div class="timeline-text">
+            <span class="timeline-date">Momento favorito</span>
+            <p>Um dos muitos instantes que eu reviveria infinitas vezes.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== CONTADOR ===== -->
+  <section class="counter-section" id="counterSection">
+    <div class="counter-inner fade-in-up">
+      <div class="section-label">tempo juntos</div>
+      <h2 class="section-title">Nosso tempo juntos</h2>
+      <div class="counter-grid">
+        <div class="counter-box">
+          <span class="counter-number" id="cDays">0</span>
+          <span class="counter-label">dias</span>
+        </div>
+        <div class="counter-box">
+          <span class="counter-number" id="cHours">0</span>
+          <span class="counter-label">horas</span>
+        </div>
+        <div class="counter-box">
+          <span class="counter-number" id="cMinutes">0</span>
+          <span class="counter-label">minutos</span>
+        </div>
+        <div class="counter-box">
+          <span class="counter-number" id="cSeconds">0</span>
+          <span class="counter-label">segundos</span>
+        </div>
+      </div>
+      <!-- TROQUE pela data real do relacionamento (formato YYYY-MM-DD) -->
+      <!-- const startDate é definido no script.js -->
+    </div>
+  </section>
+
+  <!-- ===== CARTA FINAL ===== -->
+  <section class="letter-section" id="letterSection">
+    <div class="letter-card fade-in-up">
+      <div class="letter-header">
+        <div class="letter-heart"></div>
+        <h2>Uma última mensagem</h2>
+        <div class="letter-heart"></div>
+      </div>
+      <div class="letter-body">
+        <p>Se eu pudesse escolher novamente, escolheria você.</p>
+        <p>Escolheria todas as nossas conversas.</p>
+        <p>Escolheria todos os nossos momentos.</p>
+        <p>Escolheria cada abraço.</p>
+        <p>Escolheria cada sorriso.</p>
+        <p>E escolheria você, infinitas vezes.</p>
+        <br/>
+        <p>Obrigado por fazer parte da minha vida.</p>
+        <p class="letter-love">Eu te amo.</p>
+      </div>
+      <div class="letter-signature">— com todo o meu amor —</div>
+    </div>
+  </section>
+
+  <!-- ===== EFEITO FINAL ===== -->
+  <section class="final-section" id="finalSection">
+    <div class="final-hearts-rain" id="finalHeartsRain"></div>
+    <div class="final-message fade-in-up" id="finalMessage">
+      <p>Meu lugar favorito sempre será ao seu lado.</p>
+    </div>
+  </section>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="footer">
+    <div class="footer-heart"></div>
+    <p>Feito com amor especialmente para você.</p>
+    <div class="footer-heart"></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
